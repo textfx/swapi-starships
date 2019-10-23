@@ -76,7 +76,7 @@ export default class Swapi {
             MGLT: starship.MGLT,
             starshipClass: starship.starship_class
         }
-    };
+    }
 
 }
 

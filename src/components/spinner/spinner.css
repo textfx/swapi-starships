@@ -1,0 +1,77 @@
+@keyframes lds-dual-ring {
+    0 % {
+        -webkit-transform: rotate(0);
+        transform: rotate(0);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+@-webkit-keyframes lds-dual-ring {
+    0 % {
+        -webkit-transform: rotate(0);
+        transform: rotate(0);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+.lds-dual-ring {
+    position: relative;
+}
+.lds-dual-ring div {
+    box-sizing: border-box;
+}
+.lds-dual-ring > div {
+    position: absolute;
+    width: 172px;
+    height: 172px;
+    top: 14px;
+    left: 14px;
+    border-radius: 50%;
+    border: 12px solid #000;
+    border-color: #fdd700 transparent #fdd700 transparent;
+    -webkit-animation: lds-dual-ring 2.2s linear infinite;
+    animation: lds-dual-ring 2.2s linear infinite;
+}
+.lds-dual-ring > div:nth-child(2) {
+    border-color: transparent;
+}
+.lds-dual-ring > div:nth-child(2) div {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+.lds-dual-ring > div:nth-child(2) div:before,
+.lds-dual-ring > div:nth-child(2) div:after {
+    content: "";
+    display: block;
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    top: -12px;
+    left: 68px;
+    background: #fdd700;
+    border-radius: 50%;
+    box-shadow: 0 160px 0 0 #fdd700;
+}
+.lds-dual-ring > div:nth-child(2) div:after {
+    left: -12px;
+    top: 68px;
+    box-shadow: 160px 0 0 0 #fdd700;
+}
+.lds-dual-ring {
+    width: 89px !important;
+    height: 89px !important;
+    -webkit-transform: translate(-44.5px, -44.5px) scale(0.445) translate(44.5px, 44.5px);
+    transform: translate(-44.5px, -44.5px) scale(0.445) translate(44.5px, 44.5px);
+}
+.center-block {
+     display: block;
+     margin-right: auto;
+     margin-left: auto;
+ }

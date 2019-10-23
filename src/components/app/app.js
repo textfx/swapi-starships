@@ -22,7 +22,7 @@ export default function App() {
         <Provider store={store}>
             <Router>
                 <Switch>
-                    <Route path="/q/:search?" exact component={()=><SearchPage swapi={swapi} />} />
+                    <Route path={["/q/:search?","/q/:search?/page/:page?"]} exact component={()=><SearchPage swapi={swapi} />} />
                     <Route path={["/","/page/:page?"]} exact component={()=><Main swapi={swapi} />} />
                     <Route path="/" component={Search} />
                 </Switch>

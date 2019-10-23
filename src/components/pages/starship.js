@@ -2,12 +2,19 @@ import React,{useState, useEffect} from 'react';
 import {useParams, useHistory} from 'react-router-dom';
 import {useDispatch, useSelector} from "react-redux";
 import {setStarship} from "../../actions";
+import styled from 'styled-components';
+import Spinner from "../spinner";
 
+const Div = styled.div`
+
+    td, th {
+        color: yellow;
+    }
+`;
 export default function StarShip({swapi}) { /*{match:{params:{id}}}*/
     const {id} = useParams();
     const history = useHistory();
     const state = useSelector((state)=>state.starship);
-
     const dispatch = useDispatch();
     const [loading, setLoading] = useState(true);
 
@@ -21,30 +28,45 @@ export default function StarShip({swapi}) { /*{match:{params:{id}}}*/
     },[id]);
 
     if (loading || state === null || !state)
-        return (<div>Starship Detalis Loading... </div>);
+        return <Spinner />;
 
 
-
-   // const {img, name, model, manufacturer, costInCredits, length, maxSpeed, crew, passengers, cargoCapacity, consumables ,hyperdriveRating, MGLT, starshipClass} = state;
-
+    const headers = {
+        name: "Name",
+        model: "Model",
+        manufacturer: "Manufacturer",
+        costInCredits:  "Cost in Credits",
+        length: "Length",
+        maxSpeed: "Max Speed",
+        crew: "Crew",
+        passengers: "Passengers",
+        cargoCapacity:"Cargo capacity",
+        consumables: "Consumables",
+        hyperdriveRating: "Hyperdrive Rating",
+        MGLT: "MGLT",
+        starshipClass: "Starship Class"
+    }
 
     return (<>
-        <div>
-            <img src={state.img} /><br/>
-            Name: {state.name}<br/>
-            Model: {state.model}<br/>
-            Manufacturer: {state.manufacturer}<br/>
-            Cost in Credits:  {state.costInCredits}<br/>
-            Length: {state.length}<br/>
-            Max Speed: {state.maxSpeed}
-            Crew: {state.crew}<br/>
-            Passengers: {state.passengers}<br/>
-            Cargo Capacity: {state.cargoCapacity}<br/>
-            Consumables: {state.consumables}<br/>
-            Hyperdrive Rating: {state.hyperdriveRating} <br/>
-            MGLT:{state.MGLT} <br/>
-            Starship Class:{state.starshipClass} <br/>
-        </div>
-        <button onClick={()=>history.goBack()}>Back</button>
+        <Div>
+            <img className="rounded mx-auto d-block pt-5 w-75" src={state.img} /><br/>
+            <table className="table">
+                <tbody>
+                {
+                    Object.keys(state).map((key)=>{
+                        if (!headers.hasOwnProperty(key))
+                            return;
+
+                       return (
+                            <tr key={key}>
+                                <th scope="row">{headers[key]}</th>
+                                <td>{state[key]}</td>
+                            </tr>
+                       );
+                    })
+                }
+                </tbody>
+            </table>
+        </Div>
     </>);
 }

@@ -4,6 +4,7 @@ import {useDispatch} from "react-redux";
 import {setStarships} from "../../actions"
 import ListItem from "../list-item";
 import Search from './search';
+import Spinner from "../spinner";
 
 export default function Main({swapi}) { /*{match:{params:{page}}*/
     const dispatch = useDispatch();
@@ -18,5 +19,5 @@ export default function Main({swapi}) { /*{match:{params:{page}}*/
         });
     },[page]);
 
-    return loading ? "Main loading..." : <><Search /><ListItem /></>;
+    return loading ? <Spinner /> : <><Search /><ListItem /></>;
 }
