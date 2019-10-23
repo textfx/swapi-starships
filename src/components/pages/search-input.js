@@ -1,11 +1,5 @@
-import React, {useState, useEffect} from 'react';
-import {shallowEqual, useStore, useDispatch, useSelector} from "react-redux";
-
-import {useReduxContext} from "react-redux/es/hooks/useReduxContext";
-import {setStarships} from '../../actions';
-import {BrowserRouter as Router, Link, useHistory, useParams} from "react-router-dom";
-import Main from "../pages/main"
-import StarShip from "./starship";
+import React from 'react';
+import {useHistory, useParams} from "react-router-dom";
 import styled from 'styled-components'
 
 const Div = styled.div`
@@ -16,11 +10,14 @@ const Div = styled.div`
          background-color: #333;
     }
 `;
-export default function Search({swapi}) { /*{history, match:{params:{search}}, */
+
+/*Отображается на всех страницах сайта*/
+export default function SearchInput() { /*{history, match:{params:{search}}, */
     const history = useHistory();
     const {search} = useParams();
     let searchInput;
-    const onSearch =  ()=> { history.push(searchInput.value === "" ? "/" : "/q/" + searchInput.value);}
+
+    const onSearch =  ()=> { history.push(searchInput.value === "" ? "/" : "/q/" + searchInput.value);};
 
     return (
         <><Div>

@@ -1,33 +1,26 @@
 import React,{useState, useEffect} from 'react';
-import {useParams, useHistory} from 'react-router-dom';
+import {useParams} from 'react-router-dom';
 import {useDispatch, useSelector} from "react-redux";
-import {setStarship} from "../../actions";
+import {setStarshipWrap} from "../../actions";
 import styled from 'styled-components';
 import Spinner from "../spinner";
 
 const Div = styled.div`
-
     td, th {
         color: yellow;
     }
 `;
+
 export default function StarShip({swapi}) { /*{match:{params:{id}}}*/
     const {id} = useParams();
-    const history = useHistory();
     const state = useSelector((state)=>state.starship);
     const dispatch = useDispatch();
     const [loading, setLoading] = useState(true);
 
+    useEffect(()=>
+        setStarshipWrap( (id ? id : undefined), setLoading, dispatch, swapi),[id, swapi, dispatch, setLoading]);
 
-    useEffect(()=>{
-        setLoading(true);
-        swapi.getStarship(id ? id : undefined).then((result)=>{
-            setLoading(false);
-            dispatch(setStarship(result));
-        });
-    },[id]);
-
-    if (loading || state === null || !state)
+    if (loading)
         return <Spinner />;
 
 
@@ -45,17 +38,17 @@ export default function StarShip({swapi}) { /*{match:{params:{id}}}*/
         hyperdriveRating: "Hyperdrive Rating",
         MGLT: "MGLT",
         starshipClass: "Starship Class"
-    }
+    };
 
     return (<>
         <Div>
-            <img className="rounded mx-auto d-block pt-5 w-75" src={state.img} /><br/>
+            <img className="rounded mx-auto d-block pt-5 w-75" alt="Starships aren't found" src={state.img} /><br/>
             <table className="table">
                 <tbody>
                 {
                     Object.keys(state).map((key)=>{
                         if (!headers.hasOwnProperty(key))
-                            return;
+                            return null;
 
                        return (
                             <tr key={key}>

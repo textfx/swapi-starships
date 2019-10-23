@@ -1,30 +1,30 @@
-import React, {useState, useEffect} from 'react';
+import React from 'react';
 import Swapi from "../../api";
-import {BrowserRouter as Router, Redirect, Route,Switch} from 'react-router-dom';
+import {BrowserRouter as Router, Route,Switch} from 'react-router-dom';
 import reducers from "../../reducers";
-import {createStore, applyMiddleware, combineReducers} from 'redux';
-import {Provider, useDispatch} from 'react-redux'
-import {composeWithDevTools} from 'redux-devtools-extension';
-import thunk from 'redux-thunk';
+import {createStore, combineReducers} from 'redux';
+import {Provider} from 'react-redux'
 
-import Search from "../pages/search";
+import SearchInput from "../pages/search-input";
 import Main from "../pages/main"
 import StarShip from '../pages/starship'
-import {setStarships} from "../../actions";
 import SearchPage from "../pages/search-page";
 
 /*applyMiddleware(thunk)*/
+import {composeWithDevTools} from 'redux-devtools-extension';
 const store = createStore(combineReducers(reducers), composeWithDevTools());
 
+
 export default function App() {
-    const swapi = new Swapi(); /*<Route path="/" component={Search} />*/
+    const swapi = new Swapi();
+
     return (
         <Provider store={store}>
             <Router>
                 <Switch>
                     <Route path={["/q/:search?","/q/:search?/page/:page?"]} exact component={()=><SearchPage swapi={swapi} />} />
                     <Route path={["/","/page/:page?"]} exact component={()=><Main swapi={swapi} />} />
-                    <Route path="/" component={Search} />
+                    <Route path="/" component={SearchInput} />
                 </Switch>
                 <Route path="/starship/:id" exact component={()=><StarShip swapi={swapi} />} />
             </Router>

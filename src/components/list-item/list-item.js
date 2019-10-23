@@ -1,6 +1,5 @@
-import React, {useState} from 'react';
-import {useDispatch, useSelector} from "react-redux";
-import {useParams, useRouteMatch, useLocation, useHistory}  from 'react-router-dom';
+import React from 'react';
+import {useSelector} from "react-redux";
 import {Link} from "react-router-dom";
 
 import styled, {keyframes} from 'styled-components';
@@ -25,15 +24,27 @@ const Div = styled.div`
     animation: 0.1s ${keyframes `${zoomIn}`} ;
 `;
 
-export default function ListItem({loading, prefix}) {
+const ErrorMasg = styled.div`
+    color: red;
+    font-size:20px;
+    padding-top:20px;
+    text-align:center;
+`;
+
+
+export default function ListItem({prefix}) {
     const state = useSelector((state)=>state.starships);
 
     const items = (state.results||[]).map((item)=> {
-        return (<li key={item.id} className="list-group-item">
-            <Link className="d-md-block" to={"/starship/"+item.id}>{item.name} <br />(model: {item.model})</Link>
-        </li>)
+        return (
+            <li key={item.id} className="list-group-item">
+                <Link className="d-md-block" to={"/starship/"+item.id}>{item.name} <br />(model: {item.model})</Link>
+            </li>
+        );
     });
 
+    if (!items.length)
+        return <ErrorMasg>"Starships aren't found"</ErrorMasg>;
 
     return (<>
         <Div>
