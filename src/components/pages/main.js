@@ -11,6 +11,8 @@ export default function Main({swapi}) { /*{match:{params:{page}}*/
     const [loading, setLoading] = useState(true);
     const  {page} = useParams();
 
+    //React Hook useEffect has missing dependencies: 'dispatch', 'page', and 'swapi'. Either include them or remove the dependency array
+    //Приходится добавлять все внешние переменные в список.... [page, setLoading, dispatch, swapi] Буду рад услышать правильный паттерн для этой ситуации(((
     useEffect(()=>
         setStarshipsWrap(page ? "/starships/?page="+page : undefined, setLoading, dispatch, swapi),[page, setLoading, dispatch, swapi]);
 
